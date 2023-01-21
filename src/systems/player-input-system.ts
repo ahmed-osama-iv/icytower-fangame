@@ -10,7 +10,8 @@ import {
 } from "../utils/ecs/entity";
 import {
     HorizontalMotion
-} from "../components/horizontalMotion";
+} from "../components/horizontal-motion";
+
 
 export class PlayerInputSystem extends System {
 
