@@ -13,6 +13,9 @@ logs
 results
 tmp
 
+# Javascript
+.js
+
 # Build
 public/css/main.css
 
