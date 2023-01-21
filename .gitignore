@@ -15,6 +15,7 @@ tmp
 
 # Javascript
 .js
+.js.map
 
 # Build
 public/css/main.css
