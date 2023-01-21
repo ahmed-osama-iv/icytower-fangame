@@ -1,0 +1,10 @@
+{
+  "name": "ice-tower-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^18.11.18"
+  }
+}
