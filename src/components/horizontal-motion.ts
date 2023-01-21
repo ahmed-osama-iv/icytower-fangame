@@ -2,13 +2,13 @@ import {
     Component
 } from "../utils/ecs/component";
 import {
-    MotionState
-} from "../utils/enums/MotionState";
+    HorizontalMotionState
+} from "../utils/enums/horizontal-motion-state";
 
 export class HorizontalMotion extends Component {
     
     private _velocity = 0;
-    private _state = MotionState.Idle;
+    private _state = HorizontalMotionState.Idle;
     private _timeWherStateUpdated = Date.now();
     private _velocityWhenStateUpdated = 0;
 
@@ -26,25 +26,25 @@ export class HorizontalMotion extends Component {
     }
 
     updateVelocity() {
-        if(this._state == MotionState.AcceleratingRight) {
+        if(this._state == HorizontalMotionState.AcceleratingRight) {
             this._velocity = this.accelerate(this.getTimeElapsedAtCurrentState(), this._velocityWhenStateUpdated, this.maxVelocity-this._velocityWhenStateUpdated, 1000);
         }
-        else if(this._state == MotionState.AcceleratingLeft) {
+        else if(this._state == HorizontalMotionState.AcceleratingLeft) {
             this._velocity = this.accelerate(this.getTimeElapsedAtCurrentState(), this._velocityWhenStateUpdated, -this.maxVelocity-this._velocityWhenStateUpdated, 1000);
         }
-        else if(this._state == MotionState.SlidingRight || this._state == MotionState.SlidingLeft) {
+        else if(this._state == HorizontalMotionState.SlidingRight || this._state == HorizontalMotionState.SlidingLeft) {
             this._velocity = this.slide(this.getTimeElapsedAtCurrentState(), this._velocityWhenStateUpdated, -this._velocityWhenStateUpdated, 500);
         }
-        else if(this._state == MotionState.Braking) {
+        else if(this._state == HorizontalMotionState.Braking) {
             this._velocity = this.slide(this.getTimeElapsedAtCurrentState(), this._velocityWhenStateUpdated, -this._velocityWhenStateUpdated, 200);
         }
     }
     
-    get state(): MotionState {
+    get state(): HorizontalMotionState {
         return this._state;
     }
 
-    set state(value: MotionState) {
+    set state(value: HorizontalMotionState) {
         if(this._state != value) {
             this._state = value;
             this._timeWherStateUpdated = Date.now();

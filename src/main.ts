@@ -17,23 +17,8 @@ import {
     Position
 } from "./components/position";
 import {
-    HorizontalMotion
-} from "./components/horizontalMotion";
-import {
     DrawableSprite
 } from "./components/drawable-sprite";
-import {
-    Entity
-} from "./utils/ecs/entity";
-import {
-    GravitySystem
-} from "./systems/gravity-system";
-import {
-    VerticalMotion
-} from "./components/verticalMotion";
-import {
-    VerticalMotionState
-} from "./utils/enums/VerticalMotionState";
 import {
     PlayerInputSystem
 } from "./systems/player-input-system";
@@ -44,8 +29,8 @@ import {
     EasingFunction
 } from "./utils/EasingFunction";
 import {
-    MotionState
-} from "./utils/enums/MotionState";
+    HorizontalMotion
+} from "./components/horizontal-motion";
 
 
 let ecs = new ECS();
@@ -90,8 +75,6 @@ ecs.addComponent(character, new HorizontalMotion(
     EasingFunction.easeInOutQuad,
     EasingFunction.easeInOutQuad,
 ));
-ecs.addComponent(character, new VerticalMotion(0, VerticalMotionState.Falling));
-
 
 ecs.addSystem(new PlayerInputSystem(isKeyPressed));
 

@@ -9,10 +9,11 @@ import {
 } from "../components/position";
 import {
     HorizontalMotion
-} from "../components/horizontalMotion";
+} from "../components/horizontal-motion";
 import {
-    MotionState
-} from "../utils/enums/MotionState";
+    HorizontalMotionState
+} from "../utils/enums/horizontal-motion-state";
+
 
 export class AccelerationSystem extends System {
     
@@ -46,34 +47,34 @@ export class AccelerationSystem extends System {
             let motion = this.ecs.getComponents(entity).get(HorizontalMotion);
             let position = this.ecs.getComponents(entity).get(Position);
 
-            console.log(MotionState[motion.state], motion.velocity);
+            console.log(HorizontalMotionState[motion.state], motion.velocity);
             
-            if((motion.state == MotionState.Braking || motion.state == MotionState.SlidingRight || motion.state == MotionState.SlidingLeft) && motion.velocity == 0) {
-                motion.state = MotionState.Idle;
+            if((motion.state == HorizontalMotionState.Braking || motion.state == HorizontalMotionState.SlidingRight || motion.state == HorizontalMotionState.SlidingLeft) && motion.velocity == 0) {
+                motion.state = HorizontalMotionState.Idle;
             }
 
             if(isArrowRightPressed && !isArrowLeftPressed) {
-                if(motion.state == MotionState.Idle || motion.state == MotionState.SlidingRight) {
-                    motion.state = MotionState.AcceleratingRight;
+                if(motion.state == HorizontalMotionState.Idle || motion.state == HorizontalMotionState.SlidingRight) {
+                    motion.state = HorizontalMotionState.AcceleratingRight;
                 }
-                else if(motion.state == MotionState.SlidingLeft) {
-                    motion.state = MotionState.Braking;
+                else if(motion.state == HorizontalMotionState.SlidingLeft) {
+                    motion.state = HorizontalMotionState.Braking;
                 }
             }
             else if (isArrowLeftPressed && !isArrowRightPressed) {
-                if(motion.state == MotionState.Idle || motion.state == MotionState.SlidingLeft) {
-                    motion.state = MotionState.AcceleratingLeft;
+                if(motion.state == HorizontalMotionState.Idle || motion.state == HorizontalMotionState.SlidingLeft) {
+                    motion.state = HorizontalMotionState.AcceleratingLeft;
                 }
-                else if(motion.state == MotionState.SlidingRight) {
-                    motion.state = MotionState.Braking;
+                else if(motion.state == HorizontalMotionState.SlidingRight) {
+                    motion.state = HorizontalMotionState.Braking;
                 }
             }
             else {
                 if(motion.velocity > 0) {
-                    motion.state = MotionState.SlidingRight;
+                    motion.state = HorizontalMotionState.SlidingRight;
                 }
                 else if(motion.velocity < 0) {
-                    motion.state = MotionState.SlidingLeft;
+                    motion.state = HorizontalMotionState.SlidingLeft;
                 }
             }
             
