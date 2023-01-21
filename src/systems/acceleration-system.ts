@@ -16,30 +16,16 @@ import {
 
 
 export class AccelerationSystem extends System {
-    
-    private _previousTimeStamp: number;
-    private _currentTimeStamp: number;
-    private _deltaTime: number;
-    private elapsed: number;
-    private intialVelocity: number;
+
     private _isKeyPressed: Map<string, boolean>;
-    private readonly BREAKE_CONSTANT = 1.01;
-    private readonly FRICTION_CONSTANT = 0.65;
     constructor(isKeyPressed:  Map<string, boolean>) {
         super();
-        this._previousTimeStamp = Date.now();
         this._isKeyPressed = isKeyPressed;
-        this.elapsed = 0;
-        this.intialVelocity = 0;
     }
     
     componentsRequired = new Set<Function>([Position, HorizontalMotion]);
 
     update(entities: Set<Entity>): void {
-        this._currentTimeStamp = Date.now();
-        this._deltaTime = (this._currentTimeStamp - this._previousTimeStamp);
-        this._previousTimeStamp = this._currentTimeStamp;
-
         let isArrowLeftPressed = this._isKeyPressed['ArrowLeft'];
         let isArrowRightPressed = this._isKeyPressed['ArrowRight'];
         
@@ -77,12 +63,8 @@ export class AccelerationSystem extends System {
                     motion.state = HorizontalMotionState.SlidingLeft;
                 }
             }
-            
-            
-            
             motion.updateVelocity();
             position.x += motion.velocity;
-            // console.log(this._deltaTime, this.elapsed, motion.velocity, position.x, position.y);
         })
     }
 }
