@@ -68,11 +68,11 @@ let drawerSystem = new DrawingSystem("canvas", [
 let isKeyPressed = new Map<string, boolean>();
 
 document.addEventListener('keydown', function (event) {
-    isKeyPressed[event.key] = true;
+    isKeyPressed[event.code] = true;
 });
 
 document.addEventListener('keyup', function (event) {
-    isKeyPressed[event.key] = false;
+    isKeyPressed[event.code] = false;
 });
 
 ecs.addSystem(drawerSystem);
