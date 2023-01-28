@@ -20,9 +20,6 @@ import {
     DrawableSprite
 } from "./components/drawable-sprite";
 import {
-    PlayerInputSystem
-} from "./systems/player-input-system";
-import {
     Character
 } from "./components/character";
 import {
@@ -83,9 +80,9 @@ ecs.addComponent(character, new DrawableSprite(CharacterSprite.Idle0));
 ecs.addComponent(character, new Position(100, 0));
 ecs.addComponent(character, new HorizontalMotion(
     12,
+    EasingFunction.easeOutQuad,
     EasingFunction.easeInOutQuad,
-    EasingFunction.easeInOutQuad,
-    EasingFunction.easeInOutQuad,
+    EasingFunction.easeOutQuart,
 ));
 ecs.addComponent(character, new VerticalMotion(
     12,
@@ -97,8 +94,6 @@ ecs.addComponent(character, new BoxCollider(
     new Position(0, 0),
     new Position(30, 52),
 ));
-
-ecs.addSystem(new PlayerInputSystem(isKeyPressed));
 
 let floors : Entity[] = [];
 for(var i=0; i<30; i++) {
