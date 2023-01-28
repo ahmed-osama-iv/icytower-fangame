@@ -9,7 +9,7 @@ export class HorizontalMotion extends Component {
     
     private _velocity = 0;
     private _state = HorizontalMotionState.Idle;
-    private _timeWherStateUpdated = Date.now();
+    private _timeWhenStateUpdated = Date.now();
     private _velocityWhenStateUpdated = 0;
 
     constructor(
@@ -47,13 +47,13 @@ export class HorizontalMotion extends Component {
     set state(value: HorizontalMotionState) {
         if(this._state != value) {
             this._state = value;
-            this._timeWherStateUpdated = Date.now();
+            this._timeWhenStateUpdated = Date.now();
             this._velocityWhenStateUpdated = this.velocity;
         }
     }
 
     getTimeElapsedAtCurrentState(): number{
-        return Date.now() - this._timeWherStateUpdated;
+        return Date.now() - this._timeWhenStateUpdated;
     }
 }
 
