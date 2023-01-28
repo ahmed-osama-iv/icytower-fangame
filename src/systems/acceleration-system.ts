@@ -43,7 +43,7 @@ export class AccelerationSystem extends System {
                 if(motion.state == HorizontalMotionState.Idle || motion.state == HorizontalMotionState.SlidingRight) {
                     motion.state = HorizontalMotionState.AcceleratingRight;
                 }
-                else if(motion.state == HorizontalMotionState.SlidingLeft) {
+                else if(motion.state == HorizontalMotionState.SlidingLeft || motion.state == HorizontalMotionState.AcceleratingLeft) {
                     motion.state = HorizontalMotionState.Braking;
                 }
             }
@@ -51,7 +51,7 @@ export class AccelerationSystem extends System {
                 if(motion.state == HorizontalMotionState.Idle || motion.state == HorizontalMotionState.SlidingLeft) {
                     motion.state = HorizontalMotionState.AcceleratingLeft;
                 }
-                else if(motion.state == HorizontalMotionState.SlidingRight) {
+                else if(motion.state == HorizontalMotionState.SlidingRight || motion.state == HorizontalMotionState.AcceleratingRight) {
                     motion.state = HorizontalMotionState.Braking;
                 }
             }
