@@ -36,7 +36,12 @@ export class HorizontalMotion extends Component {
             this._velocity = this.slide(this.getTimeElapsedAtCurrentState(), this._velocityWhenStateUpdated, -this._velocityWhenStateUpdated, 500);
         }
         else if(this._state == HorizontalMotionState.Braking) {
-            this._velocity = this.slide(this.getTimeElapsedAtCurrentState(), this._velocityWhenStateUpdated, -this._velocityWhenStateUpdated, 200);
+            if(Math.abs(this._velocity) < 0.1) {
+                this._velocity = 0;
+            }
+            else {
+                this._velocity = this.brake(this.getTimeElapsedAtCurrentState(), this._velocityWhenStateUpdated, -this._velocityWhenStateUpdated, 200);
+            }
         }
     }
     
