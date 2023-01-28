@@ -90,6 +90,7 @@ ecs.addComponent(character, new HorizontalMotion(
 ecs.addComponent(character, new VerticalMotion(
     12,
     EasingFunction.easeOutSine,
+    EasingFunction.easeInQuad,
 ));
 ecs.addComponent(character, new BoxCollider(
     ecs.getComponents(character).get(Position),
