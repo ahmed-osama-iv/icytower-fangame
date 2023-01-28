@@ -34,7 +34,6 @@ export class AccelerationSystem extends System {
             let position = this.ecs.getComponents(entity).get(Position);
 
             motion.updateVelocity();
-            console.log(HorizontalMotionState[motion.state], motion.velocity);
             
             if((motion.state == HorizontalMotionState.Braking || motion.state == HorizontalMotionState.SlidingRight || motion.state == HorizontalMotionState.SlidingLeft) && motion.velocity == 0) {
                 motion.state = HorizontalMotionState.Idle;
