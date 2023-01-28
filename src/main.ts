@@ -31,6 +31,18 @@ import {
 import {
     HorizontalMotion
 } from "./components/horizontal-motion";
+import {
+    VerticalMotion
+} from "./components/vertical-motion";
+import {
+    BoxCollider
+} from "./components/box-collider";
+import {
+    VerticalMotionSystem
+} from "./systems/vertical-motion-system";
+import {
+    Entity
+} from "./utils/ecs/entity";
 
 
 let ecs = new ECS();
@@ -75,8 +87,42 @@ ecs.addComponent(character, new HorizontalMotion(
     EasingFunction.easeInOutQuad,
     EasingFunction.easeInOutQuad,
 ));
+ecs.addComponent(character, new VerticalMotion(
+    12,
+    EasingFunction.easeOutSine,
+));
+ecs.addComponent(character, new BoxCollider(
+    ecs.getComponents(character).get(Position),
+    new Position(0, 0),
+    new Position(30, 52),
+));
 
 ecs.addSystem(new PlayerInputSystem(isKeyPressed));
+
+let floors : Entity[] = [];
+for(var i=0; i<30; i++) {
+    floors.push(ecs.addEntity());
+    ecs.addComponent(floors[floors.length-1], new Position(i*32, 830));
+    ecs.addComponent(floors[floors.length-1], new DrawableSprite(FloorSprite.RockMiddle));
+    ecs.addComponent(floors[floors.length-1], new BoxCollider(
+        ecs.getComponents(floors[floors.length-1]).get(Position),
+        new Position(0, 0),
+        new Position(32, 37),
+    ));
+}
+
+for(var i=0; i<10; i++) {
+    floors.push(ecs.addEntity());
+    ecs.addComponent(floors[floors.length-1], new Position(i*32, 600));
+    ecs.addComponent(floors[floors.length-1], new DrawableSprite(FloorSprite.RockMiddle));
+    ecs.addComponent(floors[floors.length-1], new BoxCollider(
+        ecs.getComponents(floors[floors.length-1]).get(Position),
+        new Position(0, 0),
+        new Position(32, 37),
+    ));
+}
+
+ecs.addSystem(new VerticalMotionSystem(isKeyPressed, floors));
 
 
 update()
