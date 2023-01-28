@@ -95,7 +95,6 @@ export class VerticalMotionSystem extends System {
 
         let velocity = this.ecs.getComponents(character).get(VerticalMotion).velocity;
 
-        console.log(characterBottom, floorTop, velocity, this.isHorizontallyAligned(character, floor), characterBottom <= floorTop && characterBottom + velocity >= floorTop);
         return this.isHorizontallyAligned(character, floor) &&
             characterBottom <= floorTop && characterBottom + velocity >= floorTop
     }
