@@ -16,6 +16,8 @@ export class VerticalMotion extends Component {
     constructor(
         public maxVelocity: number,
         public fall: (elapsed: number, initialValue: number, amountOfChange: number, duration: number) => number,
+        public jump: (elapsed: number, initialValue: number, amountOfChange: number, duration: number) => number,
+
     ) {
         super();
     }
@@ -30,6 +32,9 @@ export class VerticalMotion extends Component {
         }
         else if(this._state == VerticalMotionState.OnGround) {
             this._velocity = 0;
+        }
+        else if(this.state == VerticalMotionState.PropelledUp) {
+            this._velocity = -10 - this.jump(this.getTimeElapsedAtCurrentState(), this._velocityWhenStateUpdated, -10, 400);
         }
     }
 
