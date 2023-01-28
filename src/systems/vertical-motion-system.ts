@@ -33,7 +33,7 @@ export class VerticalMotionSystem extends System {
     componentsRequired = new Set<Function>([Position, VerticalMotion]);
 
     update(entities: Set<Entity>): void {
-        let isJumpPressed = this._isKeyPressed['ArrowLeft'] || this._isKeyPressed['ArrowLeft'];
+        let isJumpPressed = this._isKeyPressed['ArrowUp'] || this._isKeyPressed['Space'];
             
         entities.forEach(entity => {
             let motion = this.ecs.getComponents(entity).get(VerticalMotion);
@@ -55,6 +55,16 @@ export class VerticalMotionSystem extends System {
                     if(!this.tryUpdateFloorStandingOn(entity)) {
                         motion.state = VerticalMotionState.Falling;
                     }
+                }
+                
+                if(isJumpPressed) {
+                    motion.state = VerticalMotionState.PropelledUp;
+                }
+            }
+            else if(motion.state == VerticalMotionState.PropelledUp) {
+                position.y += motion.velocity;
+                if(motion.velocity == 0) {
+                    motion.state = VerticalMotionState.Falling;
                 }
             }
         })
