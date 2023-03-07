@@ -2,7 +2,7 @@ import {
     Component
 } from "../utils/ecs/component";
 
-export class Character extends Component {
+export class CharacterComponent extends Component {
     constructor() {
         super();
     }

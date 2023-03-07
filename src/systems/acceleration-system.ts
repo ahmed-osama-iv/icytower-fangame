@@ -5,14 +5,17 @@ import {
     Entity
 } from "../utils/ecs/entity";
 import {
-    Position
-} from "../components/position";
+    PositionComponent
+} from "../components/position-component";
 import {
-    HorizontalMotion
-} from "../components/horizontal-motion";
+    HorizontalMotionComponent
+} from "../components/horizontal-motion-component";
 import {
     HorizontalMotionState
 } from "../utils/enums/horizontal-motion-state";
+import {
+    Component
+} from "../utils/ecs/component";
 
 
 export class AccelerationSystem extends System {
@@ -23,15 +26,15 @@ export class AccelerationSystem extends System {
         this._isKeyPressed = isKeyPressed;
     }
     
-    componentsRequired = new Set<Function>([Position, HorizontalMotion]);
+    componentsRequired = new Set<Function>([PositionComponent, HorizontalMotionComponent]);
 
     update(entities: Set<Entity>): void {
         let isArrowLeftPressed = this._isKeyPressed['ArrowLeft'];
         let isArrowRightPressed = this._isKeyPressed['ArrowRight'];
         
         entities.forEach(entity => {
-            let motion = this.ecs.getComponents(entity).get(HorizontalMotion);
-            let position = this.ecs.getComponents(entity).get(Position);
+            let motion = this.ecs.getComponents(entity).get(HorizontalMotionComponent);
+            let position = this.ecs.getComponents(entity).get(PositionComponent);
 
             motion.updateVelocity();
             

@@ -14,26 +14,26 @@ import {
     AccelerationSystem
 } from "./systems/acceleration-system";
 import {
-    Position
+    PositionComponent
 } from "./components/position";
 import {
-    DrawableSprite
-} from "./components/drawable-sprite";
+    DrawableSpriteComponent
+} from "./components/drawable-sprite-component";
 import {
-    Character
+    CharacterComponent
 } from "./components/character";
 import {
     EasingFunction
 } from "./utils/EasingFunction";
 import {
-    HorizontalMotion
-} from "./components/horizontal-motion";
+    HorizontalMotionComponent
+} from "./components/horizontal-motion-component";
 import {
     VerticalMotion
 } from "./components/vertical-motion";
 import {
-    BoxCollider
-} from "./components/box-collider";
+    BoxColliderComponent
+} from "./components/box-collider-component";
 import {
     VerticalMotionSystem
 } from "./systems/vertical-motion-system";
@@ -75,10 +75,10 @@ document.addEventListener('keyup', function (event) {
 ecs.addSystem(drawerSystem);
 ecs.addSystem(new AccelerationSystem(isKeyPressed));
 let character = ecs.addEntity();
-ecs.addComponent(character, new Character());
-ecs.addComponent(character, new DrawableSprite(CharacterSprite.Idle0));
-ecs.addComponent(character, new Position(100, 0));
-ecs.addComponent(character, new HorizontalMotion(
+ecs.addComponent(character, new CharacterComponent());
+ecs.addComponent(character, new DrawableSpriteComponent(CharacterSprite.Idle0));
+ecs.addComponent(character, new PositionComponent(100, 0));
+ecs.addComponent(character, new HorizontalMotionComponent(
     12,
     EasingFunction.easeOutQuad,
     EasingFunction.easeInOutQuad,
@@ -89,32 +89,32 @@ ecs.addComponent(character, new VerticalMotion(
     EasingFunction.easeOutSine,
     EasingFunction.easeInQuad,
 ));
-ecs.addComponent(character, new BoxCollider(
-    ecs.getComponents(character).get(Position),
-    new Position(0, 0),
-    new Position(30, 52),
+ecs.addComponent(character, new BoxColliderComponent(
+    ecs.getComponents(character).get(PositionComponent),
+    new PositionComponent(0, 0),
+    new PositionComponent(30, 52),
 ));
 
 let floors : Entity[] = [];
 for(var i=0; i<30; i++) {
     floors.push(ecs.addEntity());
-    ecs.addComponent(floors[floors.length-1], new Position(i*32, 830));
-    ecs.addComponent(floors[floors.length-1], new DrawableSprite(FloorSprite.RockMiddle));
-    ecs.addComponent(floors[floors.length-1], new BoxCollider(
-        ecs.getComponents(floors[floors.length-1]).get(Position),
-        new Position(0, 0),
-        new Position(32, 37),
+    ecs.addComponent(floors[floors.length-1], new PositionComponent(i*32, 830));
+    ecs.addComponent(floors[floors.length-1], new DrawableSpriteComponent(FloorSprite.RockMiddle));
+    ecs.addComponent(floors[floors.length-1], new BoxColliderComponent(
+        ecs.getComponents(floors[floors.length-1]).get(PositionComponent),
+        new PositionComponent(0, 0),
+        new PositionComponent(32, 37),
     ));
 }
 
 for(var i=0; i<10; i++) {
     floors.push(ecs.addEntity());
-    ecs.addComponent(floors[floors.length-1], new Position(i*32, 600));
-    ecs.addComponent(floors[floors.length-1], new DrawableSprite(FloorSprite.RockMiddle));
-    ecs.addComponent(floors[floors.length-1], new BoxCollider(
-        ecs.getComponents(floors[floors.length-1]).get(Position),
-        new Position(0, 0),
-        new Position(32, 37),
+    ecs.addComponent(floors[floors.length-1], new PositionComponent(i*32, 600));
+    ecs.addComponent(floors[floors.length-1], new DrawableSpriteComponent(FloorSprite.RockMiddle));
+    ecs.addComponent(floors[floors.length-1], new BoxColliderComponent(
+        ecs.getComponents(floors[floors.length-1]).get(PositionComponent),
+        new PositionComponent(0, 0),
+        new PositionComponent(32, 37),
     ));
 }
 

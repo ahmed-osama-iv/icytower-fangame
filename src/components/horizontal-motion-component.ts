@@ -5,7 +5,7 @@ import {
     HorizontalMotionState
 } from "../utils/enums/horizontal-motion-state";
 
-export class HorizontalMotion extends Component {
+export class HorizontalMotionComponent extends Component {
     
     private _velocity = 0;
     private _state = HorizontalMotionState.Idle;
