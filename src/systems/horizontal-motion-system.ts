@@ -13,14 +13,11 @@ import {
 import {
     HorizontalMotionState
 } from "../utils/enums/horizontal-motion-state";
-import {
-    Component
-} from "../utils/ecs/component";
 
 
-export class AccelerationSystem extends System {
+export class HorizontalMotionSystem extends System {
 
-    private _isKeyPressed: Map<string, boolean>;
+    private readonly _isKeyPressed: Map<string, boolean>;
     constructor(isKeyPressed:  Map<string, boolean>) {
         super();
         this._isKeyPressed = isKeyPressed;

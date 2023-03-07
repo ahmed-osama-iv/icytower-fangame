@@ -11,8 +11,8 @@ import {
     DrawingSystem
 } from "./systems/drawing-system";
 import {
-    AccelerationSystem
-} from "./systems/acceleration-system";
+    HorizontalMotionSystem
+} from "./systems/horizontal-motion-system";
 import {
     PositionComponent
 } from "./components/position-component";
@@ -73,7 +73,7 @@ document.addEventListener('keyup', function (event) {
 });
 
 ecs.addSystem(drawerSystem);
-ecs.addSystem(new AccelerationSystem(isKeyPressed));
+ecs.addSystem(new HorizontalMotionSystem(isKeyPressed));
 let character = ecs.addEntity();
 ecs.addComponent(character, new CharacterComponent());
 ecs.addComponent(character, new DrawableSpriteComponent(CharacterSprite.Idle0));
