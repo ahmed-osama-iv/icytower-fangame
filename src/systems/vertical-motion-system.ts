@@ -5,8 +5,8 @@ import {
     Entity
 } from "../utils/ecs/entity";
 import {
-    Position
-} from "../components/position";
+    PositionComponent
+} from "../components/position-component";
 import {
     VerticalMotion
 } from "../components/vertical-motion";
@@ -14,8 +14,8 @@ import {
     VerticalMotionState
 } from "../utils/enums/vertical-motion-state";
 import {
-    BoxCollider
-} from "../components/box-collider";
+    BoxColliderComponent
+} from "../components/box-collider-component";
 
 export class VerticalMotionSystem extends System {
     
@@ -30,20 +30,20 @@ export class VerticalMotionSystem extends System {
         this._floors = floors;
     }
     
-    componentsRequired = new Set<Function>([Position, VerticalMotion]);
+    componentsRequired = new Set<Function>([PositionComponent, VerticalMotion]);
 
     update(entities: Set<Entity>): void {
         let isJumpPressed = this._isKeyPressed['ArrowUp'] || this._isKeyPressed['Space'];
             
         entities.forEach(entity => {
             let motion = this.ecs.getComponents(entity).get(VerticalMotion);
-            let position = this.ecs.getComponents(entity).get(Position);
+            let position = this.ecs.getComponents(entity).get(PositionComponent);
             
             motion.updateVelocity();
             
             if(motion.state == VerticalMotionState.Falling) {
                     if(this.tryUpdateFloorStandingOn(entity)) {
-                        position.y = this.ecs.getComponents(this._floorStandingOn).get(Position).y - this.ecs.getComponents(entity).get(BoxCollider).size.y;
+                        position.y = this.ecs.getComponents(this._floorStandingOn).get(PositionComponent).y - this.ecs.getComponents(entity).get(BoxColliderComponent).size.y;
                     }
                     else {
                         position.y += motion.velocity;
@@ -72,11 +72,11 @@ export class VerticalMotionSystem extends System {
     
     private tryUpdateFloorStandingOn(character: Entity): boolean {
         let motion = this.ecs.getComponents(character).get(VerticalMotion);
-        let position = this.ecs.getComponents(character).get(Position);
+        let position = this.ecs.getComponents(character).get(PositionComponent);
         
         for(let floor of this._floors) {
             if (this.willCollide(character, floor)) {
-                position.y = this.ecs.getComponents(floor).get(Position).y - this.ecs.getComponents(character).get(BoxCollider).size.y;
+                position.y = this.ecs.getComponents(floor).get(PositionComponent).y - this.ecs.getComponents(character).get(BoxColliderComponent).size.y;
                 motion.state = VerticalMotionState.OnGround;
                 this._floorStandingOn = floor;
                 return true;
@@ -86,11 +86,11 @@ export class VerticalMotionSystem extends System {
     }
 
     private willCollide(character: Entity, floor: Entity): boolean {
-        let characterBoxCollider = this.ecs.getComponents(character).get(BoxCollider);
+        let characterBoxCollider = this.ecs.getComponents(character).get(BoxColliderComponent);
         let characterBottom = characterBoxCollider.position.y +
             characterBoxCollider.offset.y + characterBoxCollider.size.y;
         
-        let floorBoxCollider = this.ecs.getComponents(floor).get(BoxCollider);
+        let floorBoxCollider = this.ecs.getComponents(floor).get(BoxColliderComponent);
         let floorTop = floorBoxCollider.position.y + floorBoxCollider.offset.y;
 
         let velocity = this.ecs.getComponents(character).get(VerticalMotion).velocity;
@@ -100,11 +100,11 @@ export class VerticalMotionSystem extends System {
     }
     
     private isHorizontallyAligned(character: Entity, floor: Entity): boolean {
-        let characterBoxCollider = this.ecs.getComponents(character).get(BoxCollider);
+        let characterBoxCollider = this.ecs.getComponents(character).get(BoxColliderComponent);
         let charcterStart = characterBoxCollider.position.x + characterBoxCollider.offset.x;
         let charcterEnd = characterBoxCollider.position.x + characterBoxCollider.offset.x + characterBoxCollider.size.x;
 
-        let floorBoxCollider = this.ecs.getComponents(floor).get(BoxCollider);
+        let floorBoxCollider = this.ecs.getComponents(floor).get(BoxColliderComponent);
         let floorStart = floorBoxCollider.position.x + floorBoxCollider.offset.x;
         let floorEnd = floorBoxCollider.position.x + floorBoxCollider.offset.x + floorBoxCollider.size.x;
         

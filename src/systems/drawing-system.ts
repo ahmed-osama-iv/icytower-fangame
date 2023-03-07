@@ -8,11 +8,11 @@ import {
     Entity
 } from "../utils/ecs/entity";
 import {
-    Position
-} from "../components/position";
+    PositionComponent
+} from "../components/position-component";
 import {
-    DrawableSprite
-} from "../components/drawable-sprite";
+    DrawableSpriteComponent
+} from "../components/drawable-sprite-component";
 
 
 export class DrawingSystem extends System {
@@ -45,13 +45,13 @@ export class DrawingSystem extends System {
         this.context.drawImage(this._images.get(sprite)!, x, y);
     }
     
-    componentsRequired = new Set<Function>([DrawableSprite, Position]);
+    componentsRequired = new Set<Function>([DrawableSpriteComponent, PositionComponent]);
     
     update(entities: Set<Entity>): void {
         this.context.clearRect(0, 0, this.width, this.height);
         entities.forEach(entity => {
-            let drawableSprite = this.ecs.getComponents(entity).get(DrawableSprite);
-            let position = this.ecs.getComponents(entity).get(Position);
+            let drawableSprite = this.ecs.getComponents(entity).get(DrawableSpriteComponent);
+            let position = this.ecs.getComponents(entity).get(PositionComponent);
             this.drawSprite(drawableSprite.sprite, position.x, position.y);
         })
     }

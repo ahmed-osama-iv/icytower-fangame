@@ -5,7 +5,7 @@ import {
     Sprite
 } from "../sprite";
 
-export class Position extends Component {
+export class PositionComponent extends Component {
     constructor(public x: number, public y: number) {
         super(); 
     }

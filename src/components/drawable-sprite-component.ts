@@ -5,7 +5,7 @@ import {
     Sprite
 } from "../sprite";
 
-export class DrawableSprite extends Component {
+export class DrawableSpriteComponent extends Component {
     constructor(public sprite: Sprite) {
         super();
     }
