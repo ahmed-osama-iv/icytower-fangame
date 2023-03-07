@@ -15,13 +15,13 @@ import {
 } from "./systems/acceleration-system";
 import {
     PositionComponent
-} from "./components/position";
+} from "./components/position-component";
 import {
     DrawableSpriteComponent
 } from "./components/drawable-sprite-component";
 import {
     CharacterComponent
-} from "./components/character";
+} from "./components/character-component";
 import {
     EasingFunction
 } from "./utils/EasingFunction";
