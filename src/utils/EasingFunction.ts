@@ -206,12 +206,12 @@ export class EasingFunction{
         );
     }
 
-    static easeInBack(elapsed: number, initialValue: number, amountOfChange: number, duration: number, s: number = 1.70158): number {
+    static easeInBack(elapsed: number, initialValue: number, amountOfChange: number, duration: number, s = 1.70158): number {
         elapsed = Math.min(elapsed, duration);
         return amountOfChange * (elapsed /= duration) * elapsed * ((s + 1) * elapsed - s) + initialValue;
     }
 
-    static easeOutBack(elapsed: number, initialValue: number, amountOfChange: number, duration: number, s: number = 1.70158): number {
+    static easeOutBack(elapsed: number, initialValue: number, amountOfChange: number, duration: number, s = 1.70158): number {
         elapsed = Math.min(elapsed, duration);
         return amountOfChange * ((elapsed = elapsed / duration - 1) * elapsed * ((s + 1) * elapsed + s) + 1) + initialValue;
     }
@@ -221,7 +221,7 @@ export class EasingFunction{
         initialValue: number,
         amountOfChange: number,
         duration: number,
-        s: number = 1.70158
+        s = 1.70158
     ): number {
         elapsed = Math.min(elapsed, duration);
         if ((elapsed /= duration / 2) < 1) {

@@ -50,8 +50,8 @@ export class DrawingSystem extends System {
     update(entities: Set<Entity>): void {
         this.context.clearRect(0, 0, this.width, this.height);
         entities.forEach(entity => {
-            let drawableSprite = this.ecs.getComponents(entity).get(DrawableSpriteComponent);
-            let position = this.ecs.getComponents(entity).get(PositionComponent);
+            const drawableSprite = this.ecs.getComponents(entity).get(DrawableSpriteComponent);
+            const position = this.ecs.getComponents(entity).get(PositionComponent);
             this.drawSprite(drawableSprite.sprite, position.x, position.y);
         })
     }

@@ -33,11 +33,11 @@ export class VerticalMotionSystem extends System {
     componentsRequired = new Set<Function>([PositionComponent, VerticalMotion]);
 
     update(entities: Set<Entity>): void {
-        let isJumpPressed = this._isKeyPressed['ArrowUp'] || this._isKeyPressed['Space'];
+        const isJumpPressed = this._isKeyPressed['ArrowUp'] || this._isKeyPressed['Space'];
             
         entities.forEach(entity => {
-            let motion = this.ecs.getComponents(entity).get(VerticalMotion);
-            let position = this.ecs.getComponents(entity).get(PositionComponent);
+            const motion = this.ecs.getComponents(entity).get(VerticalMotion);
+            const position = this.ecs.getComponents(entity).get(PositionComponent);
             
             motion.updateVelocity();
             
@@ -71,10 +71,10 @@ export class VerticalMotionSystem extends System {
     }
     
     private tryUpdateFloorStandingOn(character: Entity): boolean {
-        let motion = this.ecs.getComponents(character).get(VerticalMotion);
-        let position = this.ecs.getComponents(character).get(PositionComponent);
+        const motion = this.ecs.getComponents(character).get(VerticalMotion);
+        const position = this.ecs.getComponents(character).get(PositionComponent);
         
-        for(let floor of this._floors) {
+        for(const floor of this._floors) {
             if (this.willCollide(character, floor)) {
                 position.y = this.ecs.getComponents(floor).get(PositionComponent).y - this.ecs.getComponents(character).get(BoxColliderComponent).size.y;
                 motion.state = VerticalMotionState.OnGround;
@@ -86,27 +86,27 @@ export class VerticalMotionSystem extends System {
     }
 
     private willCollide(character: Entity, floor: Entity): boolean {
-        let characterBoxCollider = this.ecs.getComponents(character).get(BoxColliderComponent);
-        let characterBottom = characterBoxCollider.position.y +
+        const characterBoxCollider = this.ecs.getComponents(character).get(BoxColliderComponent);
+        const characterBottom = characterBoxCollider.position.y +
             characterBoxCollider.offset.y + characterBoxCollider.size.y;
-        
-        let floorBoxCollider = this.ecs.getComponents(floor).get(BoxColliderComponent);
-        let floorTop = floorBoxCollider.position.y + floorBoxCollider.offset.y;
 
-        let velocity = this.ecs.getComponents(character).get(VerticalMotion).velocity;
+        const floorBoxCollider = this.ecs.getComponents(floor).get(BoxColliderComponent);
+        const floorTop = floorBoxCollider.position.y + floorBoxCollider.offset.y;
+
+        const velocity = this.ecs.getComponents(character).get(VerticalMotion).velocity;
 
         return this.isHorizontallyAligned(character, floor) &&
             characterBottom <= floorTop && characterBottom + velocity >= floorTop
     }
     
     private isHorizontallyAligned(character: Entity, floor: Entity): boolean {
-        let characterBoxCollider = this.ecs.getComponents(character).get(BoxColliderComponent);
-        let charcterStart = characterBoxCollider.position.x + characterBoxCollider.offset.x;
-        let charcterEnd = characterBoxCollider.position.x + characterBoxCollider.offset.x + characterBoxCollider.size.x;
+        const characterBoxCollider = this.ecs.getComponents(character).get(BoxColliderComponent);
+        const charcterStart = characterBoxCollider.position.x + characterBoxCollider.offset.x;
+        const charcterEnd = characterBoxCollider.position.x + characterBoxCollider.offset.x + characterBoxCollider.size.x;
 
-        let floorBoxCollider = this.ecs.getComponents(floor).get(BoxColliderComponent);
-        let floorStart = floorBoxCollider.position.x + floorBoxCollider.offset.x;
-        let floorEnd = floorBoxCollider.position.x + floorBoxCollider.offset.x + floorBoxCollider.size.x;
+        const floorBoxCollider = this.ecs.getComponents(floor).get(BoxColliderComponent);
+        const floorStart = floorBoxCollider.position.x + floorBoxCollider.offset.x;
+        const floorEnd = floorBoxCollider.position.x + floorBoxCollider.offset.x + floorBoxCollider.size.x;
         
         return (charcterStart >= floorStart && charcterStart <= floorEnd) ||
             (charcterEnd >= floorStart && charcterEnd <= floorEnd) ||
