@@ -71,8 +71,8 @@ export class VerticalMotionSystem extends System {
     }
     
     private tryUpdateFloorStandingOn(character: Entity): boolean {
-        let motion = this.ecs.getComponents(character).get(VerticalMotion);
-        let position = this.ecs.getComponents(character).get(PositionComponent);
+        const motion = this.ecs.getComponents(character).get(VerticalMotion);
+        const position = this.ecs.getComponents(character).get(PositionComponent);
         
         for(const floor of this._floors) {
             if (this.willCollide(character, floor)) {

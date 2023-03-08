@@ -42,7 +42,7 @@ export class ComponentContainer {
     }
 
     public hasAll(componentClasses: Iterable<Function>): boolean {
-        for (let cls of componentClasses) {
+        for (const cls of componentClasses) {
             if (!this.map.has(cls)) {
                 return false;
             }
