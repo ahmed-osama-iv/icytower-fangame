@@ -41,7 +41,6 @@ import {
     Entity
 } from "./utils/ecs/entity";
 
-
 const ecs = new ECS();
 const drawerSystem = new DrawingSystem("canvas", [
     [CharacterSprite.Idle0, "images/character/idle/0.png"],
@@ -72,29 +71,6 @@ document.addEventListener('keyup', function (event) {
     isKeyPressed[event.code] = false;
 });
 
-ecs.addSystem(drawerSystem);
-ecs.addSystem(new HorizontalMotionSystem(isKeyPressed));
-const character = ecs.addEntity();
-ecs.addComponent(character, new CharacterComponent());
-ecs.addComponent(character, new DrawableSpriteComponent(CharacterSprite.Idle0));
-ecs.addComponent(character, new PositionComponent(100, 0));
-ecs.addComponent(character, new HorizontalMotionComponent(
-    12,
-    EasingFunction.easeOutQuad,
-    EasingFunction.easeInOutQuad,
-    EasingFunction.easeOutQuart,
-));
-ecs.addComponent(character, new VerticalMotion(
-    12,
-    EasingFunction.easeOutSine,
-    EasingFunction.easeInQuad,
-));
-ecs.addComponent(character, new BoxColliderComponent(
-    ecs.getComponents(character).get(PositionComponent),
-    new PositionComponent(0, 0),
-    new PositionComponent(30, 52),
-));
-
 const floors : Entity[] = [];
 for(let i=0; i<30; i++) {
     floors.push(ecs.addEntity());
@@ -118,8 +94,30 @@ for(let i=0; i<10; i++) {
     ));
 }
 
+ecs.addSystem(drawerSystem);
+ecs.addSystem(new HorizontalMotionSystem(isKeyPressed));
 ecs.addSystem(new VerticalMotionSystem(isKeyPressed, floors));
 
+const character = ecs.addEntity();
+ecs.addComponent(character, new CharacterComponent());
+ecs.addComponent(character, new DrawableSpriteComponent(CharacterSprite.Idle0));
+ecs.addComponent(character, new PositionComponent(100, 0));
+ecs.addComponent(character, new HorizontalMotionComponent(
+    12,
+    EasingFunction.easeOutQuad,
+    EasingFunction.easeInOutQuad,
+    EasingFunction.easeOutQuart,
+));
+ecs.addComponent(character, new VerticalMotion(
+    12,
+    EasingFunction.easeOutSine,
+    EasingFunction.easeInQuad,
+));
+ecs.addComponent(character, new BoxColliderComponent(
+    ecs.getComponents(character).get(PositionComponent),
+    new PositionComponent(0, 0),
+    new PositionComponent(30, 52),
+));
 
 update()
 function update(){
