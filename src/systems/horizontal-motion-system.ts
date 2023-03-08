@@ -26,12 +26,12 @@ export class HorizontalMotionSystem extends System {
     componentsRequired = new Set<Function>([PositionComponent, HorizontalMotionComponent]);
 
     update(entities: Set<Entity>): void {
-        let isArrowLeftPressed = this._isKeyPressed['ArrowLeft'];
-        let isArrowRightPressed = this._isKeyPressed['ArrowRight'];
+        const isArrowLeftPressed = this._isKeyPressed['ArrowLeft'];
+        const isArrowRightPressed = this._isKeyPressed['ArrowRight'];
         
         entities.forEach(entity => {
-            let motion = this.ecs.getComponents(entity).get(HorizontalMotionComponent);
-            let position = this.ecs.getComponents(entity).get(PositionComponent);
+            const motion = this.ecs.getComponents(entity).get(HorizontalMotionComponent);
+            const position = this.ecs.getComponents(entity).get(PositionComponent);
 
             motion.updateVelocity();
             

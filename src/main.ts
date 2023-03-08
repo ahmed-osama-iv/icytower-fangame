@@ -42,8 +42,8 @@ import {
 } from "./utils/ecs/entity";
 
 
-let ecs = new ECS();
-let drawerSystem = new DrawingSystem("canvas", [
+const ecs = new ECS();
+const drawerSystem = new DrawingSystem("canvas", [
     [CharacterSprite.Idle0, "images/character/idle/0.png"],
     [CharacterSprite.Idle1, "images/character/idle/1.png"],
     [CharacterSprite.Idle2, "images/character/idle/2.png"],
@@ -62,7 +62,7 @@ let drawerSystem = new DrawingSystem("canvas", [
     [FloorSprite.RockRight, "images/floor/rock/right.png"],
 ]);
 
-let isKeyPressed = new Map<string, boolean>();
+const isKeyPressed = new Map<string, boolean>();
 
 document.addEventListener('keydown', function (event) {
     isKeyPressed[event.code] = true;
@@ -74,7 +74,7 @@ document.addEventListener('keyup', function (event) {
 
 ecs.addSystem(drawerSystem);
 ecs.addSystem(new HorizontalMotionSystem(isKeyPressed));
-let character = ecs.addEntity();
+const character = ecs.addEntity();
 ecs.addComponent(character, new CharacterComponent());
 ecs.addComponent(character, new DrawableSpriteComponent(CharacterSprite.Idle0));
 ecs.addComponent(character, new PositionComponent(100, 0));
@@ -95,8 +95,8 @@ ecs.addComponent(character, new BoxColliderComponent(
     new PositionComponent(30, 52),
 ));
 
-let floors : Entity[] = [];
-for(var i=0; i<30; i++) {
+const floors : Entity[] = [];
+for(let i=0; i<30; i++) {
     floors.push(ecs.addEntity());
     ecs.addComponent(floors[floors.length-1], new PositionComponent(i*32, 830));
     ecs.addComponent(floors[floors.length-1], new DrawableSpriteComponent(FloorSprite.RockMiddle));
@@ -107,7 +107,7 @@ for(var i=0; i<30; i++) {
     ));
 }
 
-for(var i=0; i<10; i++) {
+for(let i=0; i<10; i++) {
     floors.push(ecs.addEntity());
     ecs.addComponent(floors[floors.length-1], new PositionComponent(i*32, 600));
     ecs.addComponent(floors[floors.length-1], new DrawableSpriteComponent(FloorSprite.RockMiddle));

@@ -29,7 +29,7 @@ export class ECS {
     // API: Entities
 
     public addEntity(): Entity {
-        let entity = this.nextEntityID;
+        const entity = this.nextEntityID;
         this.nextEntityID++;
         this.entities.set(entity, new ComponentContainer());
         return entity;
