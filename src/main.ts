@@ -72,16 +72,15 @@ document.addEventListener('keyup', function (event) {
 });
 
 const floors : Entity[] = [];
-for(let i=0; i<30; i++) {
-    floors.push(ecs.addEntity());
-    ecs.addComponent(floors[floors.length-1], new PositionComponent(i*32, 830));
-    ecs.addComponent(floors[floors.length-1], new DrawableSpriteComponent(FloorSprite.RockMiddle));
-    ecs.addComponent(floors[floors.length-1], new BoxColliderComponent(
-        ecs.getComponents(floors[floors.length-1]).get(PositionComponent),
-        new PositionComponent(0, 0),
-        new PositionComponent(32, 37),
-    ));
-}
+floors.push(ecs.addEntity());
+ecs.addComponent(floors[floors.length-1], new PositionComponent(0, 830));
+ecs.addComponent(floors[floors.length-1], new BoxColliderComponent(
+    ecs.getComponents(floors[floors.length-1]).get(PositionComponent),
+    new PositionComponent(0, 0),
+    new PositionComponent(30*32, 37),
+));
+ecs.addComponent(floors[floors.length-1], new DrawableSpriteComponent(FloorSprite.RockMiddle, 30));
+
 
 for(let i=0; i<10; i++) {
     floors.push(ecs.addEntity());

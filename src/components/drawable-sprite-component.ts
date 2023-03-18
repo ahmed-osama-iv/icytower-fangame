@@ -6,7 +6,7 @@ import {
 } from "../sprite";
 
 export class DrawableSpriteComponent extends Component {
-    constructor(public sprite: Sprite) {
+    constructor(public sprite: Sprite, public horizontalRepetitions = 1, public verticalRepetitions = 1) {
         super();
     }
 }
