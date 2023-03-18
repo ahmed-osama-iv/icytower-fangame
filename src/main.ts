@@ -1,10 +1,4 @@
 import {
-    CharacterSprite
-} from "./character-sprite";
-import {
-    FloorSprite
-} from "./floor-sprite";
-import {
     ECS
 } from "./utils/ecs/ecs";
 import {
@@ -40,25 +34,28 @@ import {
 import {
     Entity
 } from "./utils/ecs/entity";
+import {
+    GameImage
+} from "./gameImage";
 
 const ecs = new ECS();
 const drawerSystem = new DrawingSystem("canvas", [
-    [CharacterSprite.Idle0, "images/character/idle/0.png"],
-    [CharacterSprite.Idle1, "images/character/idle/1.png"],
-    [CharacterSprite.Idle2, "images/character/idle/2.png"],
-    [CharacterSprite.Idle3, "images/character/idle/3.png"],
-    [CharacterSprite.RunRight0, "images/character/run/right/0.png"],
-    [CharacterSprite.RunRight1, "images/character/run/right/1.png"],
-    [CharacterSprite.RunRight2, "images/character/run/right/2.png"],
-    [CharacterSprite.RunRight3, "images/character/run/right/3.png"],
-    [CharacterSprite.RunLeft0, "images/character/run/left/0.png"],
-    [CharacterSprite.RunLeft1, "images/character/run/left/1.png"],
-    [CharacterSprite.RunLeft2, "images/character/run/left/2.png"],
-    [CharacterSprite.RunLeft3, "images/character/run/left/3.png"],
+    [GameImage.Idle0, "images/character/idle/0.png"],
+    [GameImage.Idle1, "images/character/idle/1.png"],
+    [GameImage.Idle2, "images/character/idle/2.png"],
+    [GameImage.Idle3, "images/character/idle/3.png"],
+    [GameImage.RunRight0, "images/character/run/right/0.png"],
+    [GameImage.RunRight1, "images/character/run/right/1.png"],
+    [GameImage.RunRight2, "images/character/run/right/2.png"],
+    [GameImage.RunRight3, "images/character/run/right/3.png"],
+    [GameImage.RunLeft0, "images/character/run/left/0.png"],
+    [GameImage.RunLeft1, "images/character/run/left/1.png"],
+    [GameImage.RunLeft2, "images/character/run/left/2.png"],
+    [GameImage.RunLeft3, "images/character/run/left/3.png"],
 
-    [FloorSprite.RockLeft, "images/floor/rock/left.png"],
-    [FloorSprite.RockMiddle, "images/floor/rock/middle.png"],
-    [FloorSprite.RockRight, "images/floor/rock/right.png"],
+    [GameImage.RockLeft, "images/floor/rock/left.png"],
+    [GameImage.RockMiddle, "images/floor/rock/middle.png"],
+    [GameImage.RockRight, "images/floor/rock/right.png"],
 ]);
 
 const isKeyPressed = new Map<string, boolean>();
@@ -79,13 +76,13 @@ ecs.addComponent(floors[floors.length-1], new BoxColliderComponent(
     new PositionComponent(0, 0),
     new PositionComponent(30*32, 37),
 ));
-ecs.addComponent(floors[floors.length-1], new DrawableSpriteComponent(FloorSprite.RockMiddle, 30));
+ecs.addComponent(floors[floors.length-1], new DrawableSpriteComponent(GameImage.RockMiddle, 30));
 
 
 for(let i=0; i<10; i++) {
     floors.push(ecs.addEntity());
     ecs.addComponent(floors[floors.length-1], new PositionComponent(i*32, 600));
-    ecs.addComponent(floors[floors.length-1], new DrawableSpriteComponent(FloorSprite.RockMiddle));
+    ecs.addComponent(floors[floors.length-1], new DrawableSpriteComponent(GameImage.RockMiddle));
     ecs.addComponent(floors[floors.length-1], new BoxColliderComponent(
         ecs.getComponents(floors[floors.length-1]).get(PositionComponent),
         new PositionComponent(0, 0),
@@ -99,7 +96,7 @@ ecs.addSystem(new VerticalMotionSystem(isKeyPressed, floors));
 
 const character = ecs.addEntity();
 ecs.addComponent(character, new CharacterComponent());
-ecs.addComponent(character, new DrawableSpriteComponent(CharacterSprite.Idle0));
+ecs.addComponent(character, new DrawableSpriteComponent(GameImage.Idle0));
 ecs.addComponent(character, new PositionComponent(100, 0));
 ecs.addComponent(character, new HorizontalMotionComponent(
     12,

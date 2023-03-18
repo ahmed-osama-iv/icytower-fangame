@@ -13,19 +13,22 @@ import {
 import {
     DrawableSpriteComponent
 } from "../components/drawable-sprite-component";
+import {
+    AssetImage
+} from "../asset-image";
 
 
 export class DrawingSystem extends System {
 
-    private _images: Map<Sprite, HTMLImageElement>;
+    private _images: Map<AssetImage, HTMLImageElement>;
     private readonly canvas: HTMLCanvasElement;
     private readonly context: CanvasRenderingContext2D;
     private readonly width: number;
     private readonly height: number
 
-    constructor(id: string, spriteImagesToLoad: [Sprite, string][]) {
+    constructor(id: string, spriteImagesToLoad: [AssetImage, string][]) {
         super();
-        this._images = new Map<Sprite, HTMLImageElement>;
+        this._images = new Map<AssetImage, HTMLImageElement>;
         this.loadImages(spriteImagesToLoad);
         this.canvas = document.getElementById(id) as HTMLCanvasElement;
         this.context = this.canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -33,16 +36,16 @@ export class DrawingSystem extends System {
         this.height = this.canvas.height;
     }
 
-    loadImages(spriteImages: [Sprite, string][]): void {
-        spriteImages.forEach(([sprite, path]) => {
-            const img = new Image;
-            img.src = path;
-            this._images.set(sprite, img);
+    loadImages(spriteImages: [AssetImage, string][]): void {
+        spriteImages.forEach(([AssetImage, imagePath]) => {
+            const image = new Image;
+            image.src = imagePath;
+            this._images.set(AssetImage, image);
         });
     }
 
     drawSprite(drawable: DrawableSpriteComponent, offsetPosition: PositionComponent) {
-        const image = this._images.get(drawable.sprite)!;
+        const image = this._images.get(drawable.image)!;
         const width = image.width;
         const height = image.height;
         for(let i = 0; i < drawable.horizontalRepetitions; i++) {
