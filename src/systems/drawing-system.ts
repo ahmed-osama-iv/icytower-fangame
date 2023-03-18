@@ -41,8 +41,15 @@ export class DrawingSystem extends System {
         });
     }
 
-    drawSprite(sprite: Sprite, x: number, y: number) {
-        this.context.drawImage(this._images.get(sprite)!, x, y);
+    drawSprite(drawable: DrawableSpriteComponent, offsetPosition: PositionComponent) {
+        const image = this._images.get(drawable.sprite)!;
+        const width = image.width;
+        const height = image.height;
+        for(let i = 0; i < drawable.horizontalRepetitions; i++) {
+            for(let j = 0; j < drawable.verticalRepetitions; j++) {
+                this.context.drawImage(image, offsetPosition.x + i * width, offsetPosition.y + j * height);
+            }
+        }
     }
     
     componentsRequired = new Set<Function>([DrawableSpriteComponent, PositionComponent]);
@@ -52,7 +59,7 @@ export class DrawingSystem extends System {
         entities.forEach(entity => {
             const drawableSprite = this.ecs.getComponents(entity).get(DrawableSpriteComponent);
             const position = this.ecs.getComponents(entity).get(PositionComponent);
-            this.drawSprite(drawableSprite.sprite, position.x, position.y);
+            this.drawSprite(drawableSprite, position);
         })
     }
 }
