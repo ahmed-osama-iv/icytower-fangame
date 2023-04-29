@@ -43,7 +43,7 @@ export class VerticalMotionSystem extends System {
             
             if(motion.state == VerticalMotionState.Falling) {
                     if(this.tryUpdateFloorStandingOn(entity)) {
-                        position.y = this.ecs.getComponents(this._floorStandingOn).get(PositionComponent).y - this.ecs.getComponents(entity).get(BoxColliderComponent).size.y;
+                        position.y = this.ecs.getComponents(this._floorStandingOn).get(PositionComponent).y - this.ecs.getComponents(entity).get(BoxColliderComponent).height;
                     }
                     else {
                         position.y += motion.velocity;
@@ -76,7 +76,7 @@ export class VerticalMotionSystem extends System {
         
         for(const floor of this._floors) {
             if (this.willCollide(character, floor)) {
-                position.y = this.ecs.getComponents(floor).get(PositionComponent).y - this.ecs.getComponents(character).get(BoxColliderComponent).size.y;
+                position.y = this.ecs.getComponents(floor).get(PositionComponent).y - this.ecs.getComponents(character).get(BoxColliderComponent).height;
                 motion.state = VerticalMotionState.OnGround;
                 this._floorStandingOn = floor;
                 return true;
@@ -87,11 +87,10 @@ export class VerticalMotionSystem extends System {
 
     private willCollide(character: Entity, floor: Entity): boolean {
         const characterBoxCollider = this.ecs.getComponents(character).get(BoxColliderComponent);
-        const characterBottom = characterBoxCollider.position.y +
-            characterBoxCollider.offset.y + characterBoxCollider.size.y;
+        const characterBottom = characterBoxCollider.position.y + characterBoxCollider.height;
 
         const floorBoxCollider = this.ecs.getComponents(floor).get(BoxColliderComponent);
-        const floorTop = floorBoxCollider.position.y + floorBoxCollider.offset.y;
+        const floorTop = floorBoxCollider.position.y;
 
         const velocity = this.ecs.getComponents(character).get(VerticalMotion).velocity;
 
@@ -101,12 +100,12 @@ export class VerticalMotionSystem extends System {
     
     private isHorizontallyAligned(character: Entity, floor: Entity): boolean {
         const characterBoxCollider = this.ecs.getComponents(character).get(BoxColliderComponent);
-        const charcterStart = characterBoxCollider.position.x + characterBoxCollider.offset.x;
-        const charcterEnd = characterBoxCollider.position.x + characterBoxCollider.offset.x + characterBoxCollider.size.x;
+        const charcterStart = characterBoxCollider.position.x;
+        const charcterEnd = characterBoxCollider.position.x + characterBoxCollider.width;
 
         const floorBoxCollider = this.ecs.getComponents(floor).get(BoxColliderComponent);
-        const floorStart = floorBoxCollider.position.x + floorBoxCollider.offset.x;
-        const floorEnd = floorBoxCollider.position.x + floorBoxCollider.offset.x + floorBoxCollider.size.x;
+        const floorStart = floorBoxCollider.position.x;
+        const floorEnd = floorBoxCollider.position.x + floorBoxCollider.width;
         
         return (charcterStart >= floorStart && charcterStart <= floorEnd) ||
             (charcterEnd >= floorStart && charcterEnd <= floorEnd) ||

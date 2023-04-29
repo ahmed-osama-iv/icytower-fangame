@@ -73,8 +73,8 @@ floors.push(ecs.addEntity());
 ecs.addComponent(floors[floors.length-1], new PositionComponent(0, 830));
 ecs.addComponent(floors[floors.length-1], new BoxColliderComponent(
     ecs.getComponents(floors[floors.length-1]).get(PositionComponent),
-    new PositionComponent(0, 0),
-    new PositionComponent(30*32, 37),
+    37,
+    30*32,
 ));
 ecs.addComponent(floors[floors.length-1], new DrawableSpriteComponent(GameImage.RockMiddle, 30));
 
@@ -85,8 +85,8 @@ for(let i=0; i<10; i++) {
     ecs.addComponent(floors[floors.length-1], new DrawableSpriteComponent(GameImage.RockMiddle));
     ecs.addComponent(floors[floors.length-1], new BoxColliderComponent(
         ecs.getComponents(floors[floors.length-1]).get(PositionComponent),
-        new PositionComponent(0, 0),
-        new PositionComponent(32, 37),
+        37,
+        32,
     ));
 }
 
@@ -111,8 +111,8 @@ ecs.addComponent(character, new VerticalMotion(
 ));
 ecs.addComponent(character, new BoxColliderComponent(
     ecs.getComponents(character).get(PositionComponent),
-    new PositionComponent(0, 0),
-    new PositionComponent(30, 52),
+    52,
+    30,
 ));
 
 update()

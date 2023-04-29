@@ -6,7 +6,7 @@ import {
 } from "./position-component";
 
 export class BoxColliderComponent extends Component {
-    constructor(public position: PositionComponent, public offset: PositionComponent, public size: PositionComponent) {
+    constructor(public position: PositionComponent, public height: number, public width: number) {
         super();
     }
 }
