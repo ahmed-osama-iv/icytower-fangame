@@ -17,4 +17,6 @@ export enum AssetImage {
     FloorRockLeft,
     FloorRockMiddle,
     FloorRockRight,
+    
+    Background,
 }

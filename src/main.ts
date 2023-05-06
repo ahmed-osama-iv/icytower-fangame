@@ -59,6 +59,8 @@ const drawerSystem = new DrawingSystem("canvas", [
     [AssetImage.FloorRockLeft, "images/floor/rock/left.png"],
     [AssetImage.FloorRockMiddle, "images/floor/rock/middle.png"],
     [AssetImage.FloorRockRight, "images/floor/rock/right.png"],
+
+    [AssetImage.Background, "images/background.jpg"],
 ]);
 
 const isKeyPressed = new Map<string, boolean>();
@@ -78,6 +80,9 @@ ecs.addSystem(drawerSystem);
 ecs.addSystem(new HorizontalMotionSystem(isKeyPressed));
 ecs.addSystem(new VerticalMotionSystem(isKeyPressed, floors));
 
+const background = ecs.addEntity();
+ecs.addComponent(background, new DrawableSpriteComponent(AssetImage.Background, 0, 4, 3));
+ecs.addComponent(background, new PositionComponent(0, 0));
 
 const character = ecs.addEntity();
 ecs.addComponent(character, new CharacterComponent());
