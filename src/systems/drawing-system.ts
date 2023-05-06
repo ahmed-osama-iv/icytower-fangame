@@ -58,11 +58,15 @@ export class DrawingSystem extends System {
     componentsRequired = new Set<Function>([DrawableSpriteComponent, PositionComponent]);
     
     update(entities: Set<Entity>): void {
+        const entitiesList = Array.from(entities).sort((first, second) => {
+            return this.ecs.getComponents(first).get(DrawableSpriteComponent).layer - this.ecs.getComponents(second).get(DrawableSpriteComponent).layer;
+        });
         this.context.clearRect(0, 0, this.width, this.height);
-        entities.forEach(entity => {
+
+        entitiesList.forEach(entity => {
             const drawableSprite = this.ecs.getComponents(entity).get(DrawableSpriteComponent);
             const position = this.ecs.getComponents(entity).get(PositionComponent);
             this.drawSprite(drawableSprite, position);
-        })
+        });
     }
 }

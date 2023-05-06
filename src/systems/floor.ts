@@ -30,6 +30,6 @@ export class Floor {
             Floor.BLOCK_HEIGHT,
             this.numberOfBlocks * Floor.BLOCK_WIDTH,
         );
-        this.drawingInfo = new DrawableSpriteComponent(AssetImage.FloorRockMiddle, numberOfBlocks);
+        this.drawingInfo = new DrawableSpriteComponent(AssetImage.FloorRockMiddle, 1, numberOfBlocks);
     }
 }

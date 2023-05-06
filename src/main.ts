@@ -81,7 +81,7 @@ ecs.addSystem(new VerticalMotionSystem(isKeyPressed, floors));
 
 const character = ecs.addEntity();
 ecs.addComponent(character, new CharacterComponent());
-ecs.addComponent(character, new DrawableSpriteComponent(AssetImage.CharacterIdle0));
+ecs.addComponent(character, new DrawableSpriteComponent(AssetImage.CharacterIdle0, 2));
 ecs.addComponent(character, new PositionComponent(100, 0));
 ecs.addComponent(character, new HorizontalMotionComponent(
     12,
