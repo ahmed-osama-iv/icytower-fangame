@@ -64,7 +64,7 @@ export class HorizontalMotionSystem extends System {
                 }
             }
             
-            position.x += motion.velocity;
+            position.x += motion.deltaDisplacement;
         })
     }
 }

@@ -6,7 +6,9 @@ import {
 } from "../utils/enums/horizontal-motion-state";
 
 export class HorizontalMotionComponent extends Component {
-    
+
+    private _time = 0;
+    private _previousTime = 0;
     private _velocity = 0;
     private _state = HorizontalMotionState.Idle;
     private _timeWhenStateUpdated = Date.now();
@@ -25,7 +27,21 @@ export class HorizontalMotionComponent extends Component {
         return this._velocity;
     }
 
+    get _deltaTime(): number {
+        return this._time - this._previousTime;
+    }
+
+    /*
+    *   v = dx / dt
+    *   dx = v * dt
+    */
+    get deltaDisplacement(): number {
+        return this.velocity * this._deltaTime;
+    }
+
     updateVelocity() {
+        this._previousTime = this._time;
+        this._time = Date.now();
         if(this._state == HorizontalMotionState.AcceleratingRight) {
             this._velocity = this.accelerate(this.getTimeElapsedAtCurrentState(), this._velocityWhenStateUpdated, this.maxVelocity-this._velocityWhenStateUpdated, 1000);
         }
@@ -53,7 +69,7 @@ export class HorizontalMotionComponent extends Component {
         if(this._state != value) {
             this._state = value;
             this._timeWhenStateUpdated = Date.now();
-            this._velocityWhenStateUpdated = this.velocity;
+            this._velocityWhenStateUpdated = this._velocity;
         }
     }
 

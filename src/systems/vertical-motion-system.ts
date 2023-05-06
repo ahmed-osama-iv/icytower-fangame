@@ -46,7 +46,7 @@ export class VerticalMotionSystem extends System {
                         position.y = this.ecs.getComponents(this._floorStandingOn).get(PositionComponent).y - this.ecs.getComponents(entity).get(BoxColliderComponent).height;
                     }
                     else {
-                        position.y += motion.velocity;
+                        position.y += motion.deltaDisplacement;
                     }
                 
             }
@@ -62,7 +62,7 @@ export class VerticalMotionSystem extends System {
                 }
             }
             else if(motion.state == VerticalMotionState.PropelledUp) {
-                position.y += motion.velocity;
+                position.y += motion.deltaDisplacement;
                 if(motion.velocity == 0) {
                     motion.state = VerticalMotionState.Falling;
                 }
@@ -92,10 +92,10 @@ export class VerticalMotionSystem extends System {
         const floorBoxCollider = this.ecs.getComponents(floor).get(BoxColliderComponent);
         const floorTop = floorBoxCollider.position.y;
 
-        const velocity = this.ecs.getComponents(character).get(VerticalMotion).velocity;
+        const deltaDisplacement = this.ecs.getComponents(character).get(VerticalMotion).deltaDisplacement;
 
         return this.isHorizontallyAligned(character, floor) &&
-            characterBottom <= floorTop && characterBottom + velocity >= floorTop
+            characterBottom <= floorTop && characterBottom + deltaDisplacement >= floorTop
     }
     
     private isHorizontallyAligned(character: Entity, floor: Entity): boolean {

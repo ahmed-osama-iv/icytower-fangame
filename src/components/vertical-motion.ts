@@ -8,6 +8,8 @@ import {
 
 export class VerticalMotion extends Component {
 
+    private _time = 0;
+    private _previousTime = 0;
     private _velocity = 0;
     private _state = VerticalMotionState.Falling;
     private _timeWhenStateUpdated = Date.now();
@@ -26,7 +28,21 @@ export class VerticalMotion extends Component {
         return this._velocity;
     }
 
+    get _deltaTime(): number {
+        return this._time - this._previousTime;
+    }
+
+    /*
+    *   v = dx / dt
+    *   dx = v * dt
+    */
+    get deltaDisplacement(): number {
+        return this.velocity * this._deltaTime;
+    }
+
     updateVelocity() {
+        this._previousTime = this._time;
+        this._time = Date.now();
         if(this._state == VerticalMotionState.Falling) {
             this._velocity = this.fall(this.getTimeElapsedAtCurrentState(), this._velocityWhenStateUpdated, this.maxVelocity-this._velocityWhenStateUpdated, 1000);
         }
@@ -34,7 +50,7 @@ export class VerticalMotion extends Component {
             this._velocity = 0;
         }
         else if(this.state == VerticalMotionState.PropelledUp) {
-            this._velocity = -10 - this.jump(this.getTimeElapsedAtCurrentState(), this._velocityWhenStateUpdated, -10, 400);
+            this._velocity = -1 - this.jump(this.getTimeElapsedAtCurrentState(), this._velocityWhenStateUpdated, -1, 400);
         }
     }
 
