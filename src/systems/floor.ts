@@ -5,9 +5,6 @@ import {
     PositionComponent
 } from "../components/position-component";
 import {
-    GameImage
-} from "../gameImage";
-import {
     DrawableSpriteComponent
 } from "../components/drawable-sprite-component";
 import {

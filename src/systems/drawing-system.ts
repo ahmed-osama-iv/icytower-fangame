@@ -2,9 +2,6 @@ import {
     System
 } from "../utils/ecs/system";
 import {
-    Sprite
-} from "../sprite";
-import {
     Entity
 } from "../utils/ecs/entity";
 import {
